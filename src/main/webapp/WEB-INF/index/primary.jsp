@@ -60,14 +60,9 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('会员列表(动态表格)','member-list1.html',true)">
+                        <a onclick="xadmin.add_tab('会员列表','member?method=list',true)">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>会员列表(动态表格)</cite></a>
-                    </li>
-                    <li>
-                        <a onclick="xadmin.add_tab('会员删除','member-del.html')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>会员删除</cite></a>
+                            <cite>会员列表</cite></a>
                     </li>
                 </ul>
             </li>
@@ -81,11 +76,6 @@
                         <a onclick="xadmin.add_tab('订单列表','/order?method=list')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>订单列表</cite></a>
-                    </li>
-                    <li>
-                        <a onclick="xadmin.add_tab('订单列表1','order-list1.html')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>订单列表1</cite></a>
                     </li>
                 </ul>
             </li>

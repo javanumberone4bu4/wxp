@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: rimi
-  Date: 2019/9/23
-  Time: 21:39
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html class="x-admin-sm">
 <head>
@@ -36,12 +30,6 @@
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
                         <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
-                        </div>
-                        <div class="layui-inline layui-show-xs-block">
                             <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
@@ -49,9 +37,10 @@
                         </div>
                     </form>
                 </div>
-                <div class="layui-card-header">
-                    <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                    <button class="layui-btn" onclick="xadmin.open('添加用户','/role?method=add',600,400)"><i class="layui-icon"></i>添加</button>
+                <div id="demoTable" class="layui-btn-group demoTable layui-card-header">
+                    <button class="layui-btn layui-btn-danger" data-type="delAll">
+                        <span class="layui-icon layui-icon-delete"></span> 批量删除</button>
+                    <button class="layui-btn" onclick="xadmin.open('添加角色','/role?method=add',600,400)"><i class="layui-icon"></i>添加</button>
                 </div>
                 <div class="layui-card-body ">
                     <table id="demo" lay-filter="test"></table>
@@ -59,17 +48,9 @@
                         <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
                     </script>
                     <script type="text/html" id="options">
-                        <a onclick="member_stop(this,'10001')" href="javascript:;" title="启用">
-                            <i class="layui-icon">&#xe601;</i>
-                        </a>
-                        <a title="编辑" onclick="xadmin.open('编辑','<%=request.getContextPath()%>/admin?method=edit')"
-                           href="javascript:;">
-                            <i class="layui-icon">&#xe642;</i>
-                        </a>
-                        <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                            <i class="layui-icon">&#xe640;</i>
-                        </a>
-
+                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="show">启用</a>
+                        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                     </script>
 <%--                    <table class="layui-table layui-form">--%>
 <%--                        <thead>--%>
@@ -139,6 +120,84 @@
             limits: [10, 20, 30, 40],
             loading: true
         });
+        table.on('tool(test)',function (obj) {
+            var data = obj.data;
+            if(obj.event === 'show'){
+                layer.confirm('确认要停用吗？', function (index) {
+
+                    if ($(obj).attr('title') == '启用') {
+
+                        //发异步把用户状态进行更改
+                        $(obj).attr('title', '停用')
+                        $(obj).find('i').html('&#xe62f;');
+
+                        $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                        layer.msg('已停用!', {icon: 5, time: 1000});
+
+                    } else {
+                        $(obj).attr('title', '启用')
+                        $(obj).find('i').html('&#xe601;');
+
+                        $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                        layer.msg('已启用!', {icon: 5, time: 1000});
+                    }
+
+                });
+            } else if(obj.event === 'del'){
+                var ids=[];
+                ids[0] = data.id;
+                $.ajax({
+                    url: "/role?method=del",
+                    type: "POST",
+                    data: {id:ids},
+                    dataType:'json',
+                    success: function(result){
+                        layer.alert('成功', {
+                                icon: 1
+                            },
+                            function() {
+                                table.reload('demo');
+                            });
+                    },error:function () {
+
+                    }
+                });
+            } else if(obj.event === 'edit'){
+                layer.open({
+                    type: 2,
+                    title: "编辑角色",
+                    content: "/role?method=edit&id="+data.id,
+                    area: ["500px", "480px"],
+                    btn: ["确定", "取消"],
+                    yes: function (e, t) {
+                        var l = window["layui-layer-iframe" + e],
+                            r = t.find("iframe").contents().find("#user-submit");
+                        l.layui.form.on("submit(user-submit)", function (t) {
+                            t.field;
+                            // 提交数据
+                            $.ajax({
+                                url:'/role?method=update',
+                                type:"post",
+                                data: t.field,
+                                dataType:"json",
+                                success:function (result) {
+                                    layer.close(e)
+                                    if (result.code === 0){
+                                        layer.msg("操作成功")
+                                        table.reload('demo');
+                                    } else {
+                                        layer.msg("操作失败")
+                                    }
+                                }
+                            })
+
+                        }), r.trigger("click")
+                    },
+                    success: function (e, t) {
+                    }
+                })
+            }
+        });
 
         //执行一个laydate实例
         laydate.render({
@@ -149,52 +208,147 @@
         laydate.render({
             elem: '#end' //指定元素
         });
+
+        var $ = layui.$, active = {
+            delAll: function(){ //获取选中数据
+                var checkStatus = table.checkStatus('demo')
+                    ,data = checkStatus.data;
+                var ids=[],count=0;
+                for(var d in data){
+                    ids[count] = data[d].id;
+                    count++;
+                }
+                //提交数据
+                $.ajax({
+                    url: "/role?method=del",
+                    type: "POST",
+                    data: {id:ids},
+                    success: function(result){
+                        layer.alert('成功', {
+                                icon: 1
+                            },
+                            function() {
+                                //关闭当前frame
+                                xadmin.close();
+                                // 可以对父窗口进行刷新
+                                xadmin.father_reload();
+                            });
+                    }
+                });
+            }
+            // ,add:function(data) {
+            //     // 获取整个表单的数据
+            //     var field = data.field;
+            //     //发异步，把数据提交给php
+            //     $.ajax({
+            //         type: "POST",
+            //         url: "/admin?method=save",
+            //         data: field,
+            //         success: function(){
+            //             layer.alert('成功', {
+            //                     icon: 6
+            //                 },
+            //                 function() {
+            //                     //关闭当前frame
+            //                     xadmin.close();
+            //                     // 可以对父窗口进行刷新
+            //                     xadmin.father_reload();
+            //                 });
+            //         }
+            //     });
+            //     return false;
+            // }
+        };
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
     });
 
     /*用户-停用*/
-    function member_stop(obj,id){
-        layer.confirm('确认要停用吗？',function(index){
-
-            if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-            }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-            }
-
-        });
-    }
-
-    /*用户-删除*/
-    function member_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
-        });
-    }
-
-
-
-    function delAll (argument) {
-
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-    }
+    // function member_stop(obj, id) {
+    //     layer.confirm('确认要停用吗？', function (index) {
+    //
+    //         if ($(obj).attr('title') == '启用') {
+    //
+    //             //发异步把用户状态进行更改
+    //             $(obj).attr('title', '停用')
+    //             $(obj).find('i').html('&#xe62f;');
+    //
+    //             $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+    //             layer.msg('已停用!', {icon: 5, time: 1000});
+    //
+    //         } else {
+    //             $(obj).attr('title', '启用')
+    //             $(obj).find('i').html('&#xe601;');
+    //
+    //             $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+    //             layer.msg('已启用!', {icon: 5, time: 1000});
+    //         }
+    //
+    //     });
+    // }
+    //
+    // /*用户-删除*/
+    // function member_del(obj, id) {
+    //     var ids=[];
+    //     ids[0]=id;
+    //     console.log(ids)
+    //     layer.confirm('确认要删除吗？', function (index) {
+    //         //发异步删除数据
+    //         $.ajax({
+    //             url: "/admin?method=del",
+    //             type: "POST",
+    //             data: {id:ids},
+    //             // contentType:'application/json',
+    //             success: function(result){
+    //                 layer.alert('成功', {
+    //                         icon: 1
+    //                     },
+    //                     function() {
+    //                         //关闭当前frame
+    //                         xadmin.close();
+    //                         // 可以对父窗口进行刷新
+    //                         xadmin.father_reload();
+    //                     });
+    //             }
+    //         });
+    //         // $(obj).parents("tr").remove();
+    //         // layer.msg('已删除!', {icon: 1, time: 1000});
+    //     });
+    // }
+    //     function delAll(argument){
+    //             var data = tableCheck.getData();
+    //             console.log(data);
+    //            var ids=[];
+    //             if(data.length>0){
+    //                 for (var i = 0; i < data.length; i++) {
+    //                     ids= data[i].id;
+    //                 }
+    //             }
+    //             layer.confirm('确认要删除吗？' + ids, function (index) {
+    //                 $.ajax({
+    //                     url: "/admin?method=del",
+    //                     type: "POST",
+    //                     data: {"id":ids},
+    //                     success: function(result){
+    //                         layer.alert('成功', {
+    //                                 icon: 1
+    //                             },
+    //                             function() {
+    //                                 //关闭当前frame
+    //                                 xadmin.close();
+    //                                 // 可以对父窗口进行刷新
+    //                                 xadmin.father_reload();
+    //                             });
+    //                     }
+    //                 });
+    //                 //捉到所有被选中的，发异步进行删除
+    //                 // layer.msg('删除成功', {icon: 1});
+    //                 // $(".layui-form-checked").not('.header').parents('tr').remove();
+    //             });
+    //             //layer.alert(JSON.stringify(data));
+    // }
 </script>
 </html>

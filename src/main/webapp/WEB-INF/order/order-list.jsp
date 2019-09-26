@@ -33,10 +33,6 @@
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input class="layui-input" placeholder="开始日" name="start" id="start"></div>
-                        <div class="layui-input-inline layui-show-xs-block">
-                            <input class="layui-input" placeholder="截止日" name="end" id="end"></div>
-                        <div class="layui-input-inline layui-show-xs-block">
                             <select name="contrller">
                                 <option>支付方式</option>
                                 <option>支付宝</option>
@@ -61,22 +57,20 @@
                         </div>
                     </form>
                 </div>
-                <div class="layui-card-header">
-                    <button class="layui-btn layui-btn-danger" onclick="delAll()">
-                        <i class="layui-icon"></i>批量删除</button>
-                    <button class="layui-btn" onclick="xadmin.open('添加用户','./order-add.html',800,600)">
-                        <i class="layui-icon"></i>添加</button></div>
+                <div id="demoTable" class="layui-btn-group demoTable layui-card-header">
+                    <button class="layui-btn layui-btn-danger" data-type="delAll">
+                        <span class="layui-icon layui-icon-delete"></span> 批量删除</button>
+                    <button class="layui-btn" onclick="xadmin.open('添加用户','/admin?method=add',600,400)"><i class="layui-icon"></i>添加</button>
+                </div>
                 <div class="layui-card-body ">
                     <table id="demo" lay-filter="test"></table>
+                    <script type="text/html" id="status">
+                        <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span>
+                    </script>
                     <script type="text/html" id="options">
-                        <a title="编辑" onclick="xadmin.open('编辑','<%=request.getContextPath()%>/admin?method=edit')"
-                           href="javascript:;">
-                            <i class="layui-icon">&#xe642;</i>
-                        </a>
-                        <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                            <i class="layui-icon">&#xe640;</i>
-                        </a>
-
+                        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="show">启用</a>
+                        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                     </script>
 <%--                    <table class="layui-table layui-form">--%>
 <%--                        <thead>--%>
@@ -164,7 +158,6 @@
         </div>
     </div>
 </div>
-</body>
 <script> layui.use(['laydate', 'form', 'table'], function () {
     var laydate = layui.laydate;
     var form = layui.form;
@@ -206,63 +199,118 @@
             elem: '#end' //指定元素
         });
     });
-
-/*用户-停用*/
-function member_stop(obj, id) {
-    layer.confirm('确认要停用吗？',
-        function(index) {
+table.on('tool(test)',function (obj) {
+    var data = obj.data;
+    if(obj.event === 'show'){
+        layer.confirm('确认要停用吗？', function (index) {
 
             if ($(obj).attr('title') == '启用') {
 
                 //发异步把用户状态进行更改
-                $(obj).attr('title', '停用');
+                $(obj).attr('title', '停用')
                 $(obj).find('i').html('&#xe62f;');
 
                 $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!', {
-                    icon: 5,
-                    time: 1000
-                });
+                layer.msg('已停用!', {icon: 5, time: 1000});
 
             } else {
-                $(obj).attr('title', '启用');
+                $(obj).attr('title', '启用')
                 $(obj).find('i').html('&#xe601;');
 
                 $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!', {
-                    icon: 5,
-                    time: 1000
-                });
+                layer.msg('已启用!', {icon: 5, time: 1000});
             }
 
         });
-}
+    } else if(obj.event === 'del'){
+        var ids=[];
+        ids[0] = data.id;
+        $.ajax({
+            url: "/order?method=del",
+            type: "POST",
+            data: {id:ids},
+            dataType:'json',
+            success: function(result){
+                layer.alert('成功', {
+                        icon: 1
+                    },
+                    function() {
+                        table.reload('demo');
+                    });
+            },error:function () {
 
-/*用户-删除*/
-function member_del(obj, id) {
-    layer.confirm('确认要删除吗？',
-        function(index) {
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {
-                icon: 1,
-                time: 1000
-            });
+            }
         });
-}
+    } else if(obj.event === 'edit'){
+        layer.open({
+            type: 2,
+            title: "编辑订单",
+            content: "/order?method=edit&id="+data.id,
+            area: ["500px", "480px"],
+            btn: ["确定", "取消"],
+            yes: function (e, t) {
+                var l = window["layui-layer-iframe" + e],
+                    r = t.find("iframe").contents().find("#user-submit");
+                l.layui.form.on("submit(user-submit)", function (t) {
+                    t.field;
+                    // 提交数据
+                    $.ajax({
+                        url:'/order?method=update',
+                        type:"post",
+                        data: t.field,
+                        dataType:"json",
+                        success:function (result) {
+                            layer.close(e)
+                            if (result.code === 0){
+                                layer.msg("操作成功")
+                                table.reload('demo');
+                            } else {
+                                layer.msg("操作失败")
+                            }
+                        }
+                    })
 
-function delAll(argument) {
-
-    var data = tableCheck.getData();
-
-    layer.confirm('确认要删除吗？' + data,
-        function(index) {
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {
-                icon: 1
-            });
-            $(".layui-form-checked").not('.header').parents('tr').remove();
+                }), r.trigger("click")
+            },
+            success: function (e, t) {
+            }
+        })
+    }
+});
+   var $ = layui.$, active = {
+    delAll: function(){ //获取选中数据
+        var checkStatus = table.checkStatus('demo')
+            ,data = checkStatus.data;
+        var ids=[],count=0;
+        for(var d in data){
+            ids[count] = data[d].id;
+            count++;
+        }
+        //提交数据
+        $.ajax({
+            url: "/order?method=del",
+            type: "POST",
+            data: {id:ids},
+            success: function(result){
+                layer.alert('成功', {
+                        icon: 1
+                    },
+                    function() {
+                        //关闭当前frame
+                        xadmin.close();
+                        // 可以对父窗口进行刷新
+                        xadmin.father_reload();
+                    });
+            }
         });
-}</script>
+    }
+};
 
+$('.demoTable .layui-btn').on('click', function(){
+    var type = $(this).data('type');
+    active[type] ? active[type].call(this) : '';
+          });
+});
+</script>
+</body>
 </html>

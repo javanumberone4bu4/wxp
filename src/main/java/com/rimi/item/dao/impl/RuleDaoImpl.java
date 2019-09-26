@@ -60,13 +60,14 @@ public class RuleDaoImpl implements IRuleDao {
     }
 
     @Override
-    public void update(Map<String, String[]> params) {
+    public Integer update(Map<String, String[]> params) {
         // 定义SQL
         String sql = "update rule set " +
                 "classifyname = ? where id = ?";
         // 执行
-        JDBCUtils.executeUpdate(sql,
-                params.get("classifyname")[0]);
+       return JDBCUtils.executeUpdate(sql,
+                params.get("classifyname")[0],
+                params.get("id")[0]);
     }
 
     @Override

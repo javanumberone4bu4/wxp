@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>role-add</title>
+    <title>role-edit</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
@@ -17,13 +17,14 @@
 <body>
 <div class="layui-fluid">
     <div class="layui-row">
-        <form action="" method="post" class="layui-form layui-form-pane">
+        <form class="layui-form" lay-filter="form-role" id="form-role">
+            <input type="hidden" name="id" value="${role.id}"/>
             <div class="layui-form-item">
                 <label for="roleName" class="layui-form-label">
                     <span class="x-red">*</span>角色名
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="roleName" name="roleName" required="" lay-verify="required"
+                    <input type="text" id="roleName" name="roleName" value="${role.roleName}" required="" lay-verify="required"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -32,7 +33,7 @@
                     拥有权限
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="roleRule" name="roleRule" required="" lay-verify="required"
+                    <input type="text" id="roleRule" name="roleRule" value="${role.roleRule}" required="" lay-verify="required"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -41,62 +42,64 @@
                     描述
                 </label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" id="roleDescription" name="roleDescription" class="layui-textarea"></textarea>
+                    <textarea placeholder="请输入内容" id="roleDescription" name="roleDescription" value="${role.roleDescription}" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
-                <button type="button"  class="layui-btn"   lay-filter="add" lay-submit >
-                    增加
-                    <%--                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>--%>
-                </button>
+                <div class="layui-form-item layui-hide">
+                    <input type="button" lay-submit lay-filter="user-submit" id="user-submit" value="确认">
+                </div>
             </div>
         </form>
     </div>
 </div>
-<script>layui.use(['form', 'layer'],
-    function() {
+<script>
+    layui.use(['form','layer'], function(){
         $ = layui.jquery;
-        var form = layui.form,
-            layer = layui.layer;
+        var form = layui.form
+            ,layer = layui.layer;
 
         //自定义验证规则
         form.verify({
-            nikename: function(value) {
-                if (value.length < 5) {
+            nikename: function(value){
+                if(value.length < 5){
                     return '昵称至少得5个字符啊';
                 }
-            },
-            password: [/(.+){6,12}$/, '密码必须6到12位'],
-            repass: function(value) {
-                if ($('#password').val() != $('#L_repass').val()) {
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,repass: function(value){
+                if($('#L_pass').val()!=$('#L_repass').val()){
                     return '两次密码不一致';
                 }
             }
         });
 
         //监听提交
-        form.on('submit(add)', function(data) {
-            // 获取整个表单的数据
-            var field = data.field;
+        form.on('submit(add)', function(data){
+            console.log(data);
             //发异步，把数据提交给php
-            $.ajax({
-                type: "POST",
-                url: "/role?method=save",
-                data: field,
-                success: function(){
-                    layer.alert('成功', {
-                            icon: 6
-                        },
-                        function() {
-                            //关闭当前frame
-                            xadmin.close();
-                            // 可以对父窗口进行刷新
-                            xadmin.father_reload();
-                        });
-                }
+            layer.alert("增加成功", {icon: 6},function () {
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+                //关闭当前frame
+                parent.layer.close(index);
             });
             return false;
         });
+
+
+        // form.on('checkbox(father)', function(data){
+        //
+        //     if(data.elem.checked){
+        //         $(data.elem).parent().siblings('td').find('input').prop("checked", true);
+        //         form.render();
+        //     }else{
+        //         $(data.elem).parent().siblings('td').find('input').prop("checked", false);
+        //         form.render();
+        //     }
+        // });
+
+
     });
 </script>
 </body>

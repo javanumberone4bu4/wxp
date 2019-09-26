@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>role-add</title>
+    <title>rule-add</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
@@ -19,29 +19,12 @@
     <div class="layui-row">
         <form action="" method="post" class="layui-form layui-form-pane">
             <div class="layui-form-item">
-                <label for="roleName" class="layui-form-label">
-                    <span class="x-red">*</span>角色名
+                <label for="classifyName" class="layui-form-label">
+                    <span class="x-red">*</span>分类名
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="roleName" name="roleName" required="" lay-verify="required"
+                    <input type="text" id="classifyName" name="classifyName" required="" lay-verify="required"
                            autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item layui-form-text">
-                <label for="roleRule" class="layui-form-label">
-                    拥有权限
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="roleRule" name="roleRule" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item layui-form-text">
-                <label for="roleDescription" class="layui-form-label">
-                    描述
-                </label>
-                <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" id="roleDescription" name="roleDescription" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">

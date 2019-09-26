@@ -2,7 +2,6 @@ package com.rimi.item.service;
 
 import com.rimi.item.common.Page;
 import com.rimi.item.entity.Rule;
-import com.rimi.item.entity.User;
 
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,7 @@ public interface IRuleService {
     List<Rule> getAll();
     Page<Rule> findPagedBooks(Page page);
     Rule findById(String id);
-    void update(Map<String, String[]> parameterMap);
+    boolean update(Map<String, String[]> parameterMap);
     void deleteById(Integer id);
     void deleteByIds(String[] ids);
 }

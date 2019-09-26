@@ -20,7 +20,7 @@ public interface IRoleDao {
 
     Role selectById(String id);
 
-    void update(Map<String, String[]> parameterMap);
+    Integer update(Map<String, String[]> parameterMap);
 
     void deleteById(Integer id);
 }

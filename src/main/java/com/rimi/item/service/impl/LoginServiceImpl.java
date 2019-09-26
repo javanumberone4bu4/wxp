@@ -81,8 +81,9 @@ public class LoginServiceImpl implements ILoginService {
     }
 
     @Override
-    public void update(Map<String, String[]> parameterMap) {
-        userDao.update(parameterMap);
+    public boolean update(Map<String, String[]> parameterMap) {
+        Integer result = userDao.update(parameterMap);
+        return result != null && result > 0;
     }
 
     @Override
@@ -96,5 +97,15 @@ public class LoginServiceImpl implements ILoginService {
         for (String id : ids) {
             deleteById(Integer.valueOf(id));
         }
+    }
+    @Override
+    public Page<User> findPagedBooks( Map<String, String[]> parms,Page page) {
+        // 根据条件查询所有的记录
+        Integer count = userDao.count(parms);
+        page.setTotalCount(count);
+        // 调用方法
+        List<User> books = userDao.selectByPage(page.getCurrentSize(), page.getPageSize(), parms);
+        page.setPageData(books);
+        return page;
     }
 }

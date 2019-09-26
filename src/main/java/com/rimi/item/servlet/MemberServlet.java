@@ -4,11 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.rimi.item.common.BaseServlet;
 import com.rimi.item.common.LayuiData;
 import com.rimi.item.common.Page;
-import com.rimi.item.entity.Role;
-import com.rimi.item.entity.Rule;
+import com.rimi.item.entity.Member;
 import com.rimi.item.entity.User;
-import com.rimi.item.service.IRuleService;
-import com.rimi.item.service.impl.RuleServiceImpl;
+import com.rimi.item.service.IMemberService;
+import com.rimi.item.service.impl.MemberServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,14 +22,11 @@ import java.util.Map;
  * ${Description}
  *
  * @author Wang Xiaoping
- * @date 2019/9/24 23:11
+ * @date 2019/9/25 16:47
  */
-@WebServlet("/rule")
-public class RuleServlet extends BaseServlet{
-  private IRuleService ruleService=new RuleServiceImpl();
-    //public String doAdd(HttpServletRequest request,HttpServletResponse response){
-    //    return "admin/admin-add";
-    //}
+@WebServlet("/member")
+public class MemberServlet extends BaseServlet {
+    private IMemberService memberService=new MemberServiceImpl();
     public String doList(HttpServletRequest request,HttpServletResponse response) {
         // 获取分页的参数(当前第几页)
         //String currentPage = request.getParameter("page");
@@ -52,7 +48,7 @@ public class RuleServlet extends BaseServlet{
         //List<Books> list = booksService.getAll();
         //// 2.把图书列表存入到request域中,方便在页面通过jstl和el获取
         //request.setAttribute("list", list);
-        return "admin/admin-cate";
+        return "member/member-list1";
     }
 
     public void doData(HttpServletRequest request,HttpServletResponse response) throws IOException {
@@ -61,7 +57,8 @@ public class RuleServlet extends BaseServlet{
         Page page = Page.of(Integer.valueOf(currentPage));
         page.setPageSize(Integer.valueOf(limit));
         // 调用分页方法获取数据
-        Page<Rule> booksPage = ruleService.findPagedBooks(page);
+        //Map<String, String[]> params = request.getParameterMap();
+        Page<Member> booksPage = memberService.findPagedBooks(page);
         LayuiData data = new LayuiData();
         data.setCode(0);
         data.setCount(booksPage.getPageCount());
@@ -75,31 +72,31 @@ public class RuleServlet extends BaseServlet{
         writer.close();
     }
 
-   //// public String doAdd(HttpServletRequest request,HttpServletResponse response){
-   //     return "rule/rule-add";
-   // }
+    public String doAdd(HttpServletRequest request,HttpServletResponse response){
+        return "member/member-add";
+    }
     public String doSave(HttpServletRequest request,HttpServletResponse response){
         // 获取参数列表
         Map<String, String[]> params = request.getParameterMap();
         // 调用保存方法
-        ruleService.save(params);
-        return "redirect:"+request.getContextPath()+"/rule?method=list";
+        memberService.save(params);
+        return "redirect:"+request.getContextPath()+"/member?method=list";
 
     }
     public String doEdit(HttpServletRequest request,HttpServletResponse response){
         // 1.获取提交的参数
         String id = request.getParameter("id");
         // 2.根据ID获取修改的图书信息
-        Rule rule = ruleService.findById(id);
+       Member member = memberService.findById(id);
         // 3. 把用户信息显示到页面中
-        request.setAttribute("rule", rule);
-        return "rule/rule-edit";
+        request.setAttribute("member", member);
+        return "member/member-edit";
     }
     public void doUpdate(HttpServletRequest request,HttpServletResponse response){
         // 获取所有的参数
         Map<String, String[]> parameterMap = request.getParameterMap();
         // 调用方法
-        boolean update = ruleService.update(parameterMap);
+        boolean update = memberService.update(parameterMap);
         JSONObject object = new JSONObject();
         object.put("code",0);
         try {
@@ -114,7 +111,6 @@ public class RuleServlet extends BaseServlet{
         //获取参数
         String[] ids = request.getParameterValues("id[]");
         // 调用service,处理请求
-        ruleService.deleteByIds(ids);
+        memberService.deleteByIds(ids);
     }
-
 }

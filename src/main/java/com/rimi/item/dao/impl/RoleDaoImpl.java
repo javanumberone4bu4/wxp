@@ -63,14 +63,14 @@ public class RoleDaoImpl implements IRoleDao {
     }
 
     @Override
-    public void update(Map<String, String[]> params) {
+    public Integer update(Map<String, String[]> params) {
         // 定义SQL
         String sql = "update role set " +
                 "role_name = ?, " +
                 "role_rule = ?, " +
                 "role_description = ? where id = ?";
         // 执行
-        JDBCUtils.executeUpdate(sql,
+       return JDBCUtils.executeUpdate(sql,
                 params.get("roleName")[0],
                 params.get("roleRule")[0],
                 params.get("roleDescription")[0]);

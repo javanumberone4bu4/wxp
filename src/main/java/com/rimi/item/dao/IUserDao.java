@@ -22,7 +22,10 @@ public interface IUserDao {
 
     User selectById(String id);
 
-    void update(Map<String, String[]> parameterMap);
+    Integer update(Map<String, String[]> parameterMap);
 
     void deleteById(Integer id);
+    Integer count(Map<String, String[]> parms);
+
+    List<User> selectByPage(Integer currentSize, Integer pageSize, Map<String, String[]> parms);
 }

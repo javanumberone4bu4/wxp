@@ -18,7 +18,8 @@ public interface ILoginService {
     List<User> getAll();
     Page<User> findPagedBooks(Page page);
     User findById(String id);
-    void update(Map<String, String[]> parameterMap);
+    boolean update(Map<String, String[]> parameterMap);
     void deleteById(Integer id);
     void deleteByIds(String[] ids);
+    Page<User> findPagedBooks( Map<String, String[]> parms,Page page);
 }

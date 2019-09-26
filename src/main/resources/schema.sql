@@ -56,3 +56,18 @@ create table oss.orders(
 )engine=InnoDB comment '订单表';
 
 insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1002,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+
+
+use oss;
+drop table if exists oss.member;
+create table oss.member(
+    id int not null auto_increment comment 'ID',
+    username varchar(20) not null comment '用户名',
+    sex varchar(20) not null comment '性别',
+    telephone int not null comment '手机',
+    address varchar(20) not null comment '地址',
+    unique key(username),
+    primary key(id)
+)engine=InnoDB comment '会员表';
+
+insert into oss.member(username, sex, telephone, address) values('君临天下','男',15675424,'南天门');

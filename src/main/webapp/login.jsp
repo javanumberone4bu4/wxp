@@ -2,7 +2,7 @@
 <%@ page import="com.rimi.item.common.LoginConstant" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
-<html  class="x-admin-sm">
+<html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
     <title>后台登录</title>
@@ -43,7 +43,7 @@
         <hr class="hr15">
         <input name="<%=LoginConstant.LOGIN_PASSWORD%>" lay-verify="required" placeholder="密码"  type="password" class="layui-input" value="<%=password%>">
         <hr class="hr15">
-        <input type="checkbox" name="<%=LoginConstant.LOGIN_REMEMBER%>">记住我
+        <input type="checkbox" name="<%=LoginConstant.LOGIN_REMEMBER%>" class="layui-input">记住我
         <hr class="hr15">
         <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
         <hr class="hr20" >

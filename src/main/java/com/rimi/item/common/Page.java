@@ -1,12 +1,11 @@
 package com.rimi.item.common;
-
 import java.util.List;
 
 /**
  * 分页
  *
  * @author Wang Xiaoping
- * @date 2019/9/24 13:35
+ * @date 2019/9/23 9:35
  */
 public class Page<T> {
     /**
@@ -45,6 +44,23 @@ public class Page<T> {
         return page;
     }
 
+    public int getCurrentSize() {
+        Integer cp = this.currentPage;
+        if (cp > 0) {
+            cp -= 1;
+        } else {
+            cp = 0;
+        }
+        // 判断分页开始的位置是否大于总条数
+        int currentSize = cp * this.pageSize;
+        if (currentSize > this.totalCount){
+            // (5-1)*10   38
+            // 获取总分页数
+            currentSize = (this.currentPage - 1) * pageSize;
+        }
+        return currentSize;
+    }
+
 
     public List<T> getPageData() {
         return pageData;
@@ -78,4 +94,3 @@ public class Page<T> {
         this.totalCount = totalCount;
     }
 }
-

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -57,10 +58,11 @@ public class AdminServlet extends BaseServlet {
         Page page = Page.of(Integer.valueOf(currentPage));
         page.setPageSize(Integer.valueOf(limit));
         // 调用分页方法获取数据
-        Page<User> booksPage = loginService.findPagedBooks(page);
+        Map<String, String[]> params = request.getParameterMap();
+        Page<User> booksPage = loginService.findPagedBooks(params,page);
         LayuiData data = new LayuiData();
         data.setCode(0);
-        data.setCount(booksPage.getPageCount());
+        data.setCount(booksPage.getTotalCount());
         data.setMsg("");
         data.setData(booksPage.getPageData());
         // 把对象转出JSON
@@ -83,6 +85,34 @@ public class AdminServlet extends BaseServlet {
 
     }
     public String doEdit(HttpServletRequest request,HttpServletResponse response){
+        // 1.获取提交的参数
+        String id = request.getParameter("id");
+        // 2.根据ID获取修改的图书信息
+       User user = loginService.findById(id);
+        // 3. 把用户信息显示到页面中
+        request.setAttribute("user", user);
         return "admin/admin-edit";
     }
+    public void doUpdate(HttpServletRequest request,HttpServletResponse response){
+        // 获取所有的参数
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        // 调用方法
+        boolean update = loginService.update(parameterMap);
+        JSONObject object = new JSONObject();
+        object.put("code",0);
+        try {
+            response.getWriter().print(object.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // 返回列表
+        //return "redirect:"+request.getContextPath()+"/admin?method=list";
+    }
+    public void doDel(HttpServletRequest request,HttpServletResponse response){
+         //获取参数
+        String[] ids = request.getParameterValues("id[]");
+        // 调用service,处理请求
+        loginService.deleteByIds(ids);
+    }
+
 }

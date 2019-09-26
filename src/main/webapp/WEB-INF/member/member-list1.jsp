@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: rimi
-  Date: 2019/9/23
-  Time: 22:39
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html class="x-admin-sm">
 
@@ -14,14 +8,10 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/xadmin.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/xadmin.css">
     <script src="/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
-    <!--[if lt IE 9]>
-    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <script type="text/javascript" src="/js/xadmin.js"></script>
 </head>
 
 <body>
@@ -43,10 +33,6 @@
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
                         <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input" autocomplete="off" placeholder="开始日" name="start" id="start"></div>
-                        <div class="layui-inline layui-show-xs-block">
-                            <input class="layui-input" autocomplete="off" placeholder="截止日" name="end" id="end"></div>
-                        <div class="layui-inline layui-show-xs-block">
                             <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input"></div>
                         <div class="layui-inline layui-show-xs-block">
                             <button class="layui-btn" lay-submit="" lay-filter="sreach">
@@ -55,36 +41,16 @@
                     </form>
                 </div>
                 <div class="layui-card-body ">
-                    <table class="layui-table" lay-data="{url:'./user.json',page:true,toolbar: '#toolbarDemo',id:'test'}" lay-filter="test">
-                        <thead>
-                        <tr>
-                            <th lay-data="{type:'checkbox'}">ID</th>
-                            <th lay-data="{field:'id', width:80, sort: true}">ID</th>
-                            <th lay-data="{field:'username', width:120, sort: true, edit: 'text'}">用户名</th>
-                            <th lay-data="{field:'email', edit: 'text', minWidth: 150}">邮箱</th>
-                            <th lay-data="{field:'sex', width:80,templet: '#switchTpl'}">性别</th>
-                            <th lay-data="{field:'city', edit: 'text', minWidth: 100}">城市</th>
-                            <th lay-data="{field:'experience', sort: true, edit: 'text'}">积分</th>
-                            <th lay-data="{field:'dw_xinzhi',templet: function(d){ return d.dw_xinzhi.titel;}}">学校</th></tr>
-                        </thead>
-                    </table>
+                    <table id="demo" lay-filter="test"></table>
+                    <script type="text/html" id="options">
+                        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                    </script>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</body>
-<script type="text/html" id="toolbarDemo">
-    <div class = "layui-btn-container" >
-        <button class = "layui-btn layui-btn-sm" lay-event = "getCheckData" > 获取选中行数据 </button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button >
-        <button class = "layui-btn layui-btn-sm" lay-event = "isAll" > 验证是否全选</button>
-    </div >
-</script>
-<script type="text/html" id="switchTpl">
-    <!-- 这里的checked的状态只是演示 -->
-    <input type = "checkbox" name = "sex" value = "{{d.id}}" lay-skin = "switch"lay-text = "女|男" lay-filter = "sexDemo" {{ d.id == 10003 ? 'checked': ''}} >
-</script>
 <script>layui.use('laydate',
     function() {
         var laydate = layui.laydate;
@@ -103,42 +69,84 @@
 <script>layui.use('table',
     function() {
         var table = layui.table;
+        //执行渲染
+        table.render({
+            elem: '#demo' //指定原始表格元素选择器（推荐id选择器）
+            , url: '/member',
+            where: {method: 'data'}
+            , height: 315 //容器高度
+            , cols: [[
+                {checkbox: true, fixed: 'left', align: 'center'}
+                , {field: 'id', width: 80, title: 'ID', sort: true}
+                , {field: 'username', width: 80, title: '登录名'}
+                , {field: 'sex', width: 80, title: '性别', sort: true}
+                , {field: 'telephone', width: 80, title: '手机'}
+                , {field: 'address', width: 80, title: '地址'}
+                , {title: '操作', templet: '#options'}
+            ]],
+            page: true,
+            limits: [10, 20, 30, 40],
+            loading: true
+        });
 
-        //监听单元格编辑
-        table.on('edit(test)',
-            function(obj) {
-                var value = obj.value //得到修改后的值
-                    ,
-                    data = obj.data //得到所在行所有键值
-                    ,
-                    field = obj.field; //得到字段
-                layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value);
-            });
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                var ids = [];
+                ids[0] = data.id;
+                $.ajax({
+                    url: "/member?method=del",
+                    type: "POST",
+                    data: {id: ids},
+                    dataType: 'json',
+                    success: function (result) {
+                        layer.alert('成功', {
+                                icon: 1
+                            },
+                            function () {
+                                table.reload('demo');
+                            });
+                    }, error: function () {
 
-        //头工具栏事件
-        table.on('toolbar(test)',
-            function(obj) {
-                var checkStatus = table.checkStatus(obj.config.id);
-                switch (obj.event) {
-                    case 'getCheckData':
-                        var data = checkStatus.data;
-                        layer.alert(JSON.stringify(data));
-                        break;
-                    case 'getCheckLength':
-                        var data = checkStatus.data;
-                        layer.msg('选中了：' + data.length + ' 个');
-                        break;
-                    case 'isAll':
-                        layer.msg(checkStatus.isAll ? '全选': '未全选');
-                        break;
-                };
-            });
-    });</script>
-<script>var _hmt = _hmt || []; (function() {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();</script>
+                    }
+                });
+            } else if (obj.event === 'edit') {
+                layer.open({
+                    type: 2,
+                    title: "编辑会员",
+                    content: "/member?method=edit&id=" + data.id,
+                    area: ["500px", "480px"],
+                    btn: ["确定", "取消"],
+                    yes: function (e, t) {
+                        var l = window["layui-layer-iframe" + e],
+                            r = t.find("iframe").contents().find("#user-submit");
+                        l.layui.form.on("submit(user-submit)", function (t) {
+                            t.field;
+                            // 提交数据
+                            $.ajax({
+                                url: '/member?method=update',
+                                type: "post",
+                                data: t.field,
+                                dataType: "json",
+                                success: function (result) {
+                                    layer.close(e)
+                                    if (result.code === 0) {
+                                        layer.msg("操作成功")
+                                        table.reload('demo');
+                                    } else {
+                                        layer.msg("操作失败")
+                                    }
+                                }
+                            })
 
+                        }), r.trigger("click")
+                    },
+                    success: function (e, t) {
+                    }
+                })
+            }
+        });
+    });
+</script>
+</body>
 </html>

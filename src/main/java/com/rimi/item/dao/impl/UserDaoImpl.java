@@ -3,7 +3,9 @@ package com.rimi.item.dao.impl;
 import com.rimi.item.dao.IUserDao;
 import com.rimi.item.entity.User;
 import com.rimi.item.util.JDBCUtils;
+import com.rimi.item.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,8 +29,9 @@ public class UserDaoImpl implements IUserDao {
                 params.get("password")[0],
                 params.get("telephone")[0],
                 params.get("email")[0],
-                params.get("jointime")[0]);
+                params.get("joinTime")[0]);
     }
+
 
     @Override
     public List<User> selectAll() {
@@ -68,7 +71,7 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public void update(Map<String, String[]> params) {
+    public Integer update(Map<String, String[]> params) {
         // 定义SQL
         String sql = "update user set " +
                 "username = ?, " +
@@ -77,12 +80,12 @@ public class UserDaoImpl implements IUserDao {
                 "email = ? , " +
                 "join_time = ? where id = ?";
         // 执行
-        JDBCUtils.executeUpdate(sql,
+        return JDBCUtils.executeUpdate(sql,
                 params.get("username")[0],
                 params.get("password")[0],
                 params.get("telephone")[0],
                 params.get("email")[0],
-                params.get("jointime")[0],
+                params.get("joinTime")[0],
                 params.get("id")[0]);
     }
 
@@ -91,5 +94,56 @@ public class UserDaoImpl implements IUserDao {
         // 定义sql
         String sql = "delete from user where id = ?";
         JDBCUtils.executeUpdate(sql, id);
+    }
+    @Override
+    public Integer count(Map<String, String[]> parms) {
+        // 根据条件拼接sql
+        StringBuffer sql = new StringBuffer("select count(1) from user where 1 = 1");
+        List<String> parmsSql = new ArrayList<>();
+        if (parms.get("username") != null && StringUtils.isNotEmpty(parms.get("username")[0])) {
+            sql.append(" and username like ?");
+            parmsSql.add("%"+parms.get("username")[0]+"%");
+        }
+        if (parms.get("telephone") != null && StringUtils.isNotEmpty(parms.get("telephone")[0])) {
+            sql.append(" and telephone like ?");
+            parmsSql.add("%"+parms.get("telephone")[0]+"%");
+        }
+        if (parms.get("email") != null && StringUtils.isNotEmpty(parms.get("email")[0])) {
+            sql.append(" and email like ?");
+            parmsSql.add("%"+parms.get("email")[0]+"%");
+        }
+        if (parms.get("joinTime") != null && StringUtils.isNotEmpty(parms.get("joinTime")[0])) {
+            sql.append(" and join_time like ?");
+            parmsSql.add("%"+parms.get("joinTime")[0]+"%");
+        }
+        return JDBCUtils.executeQueryForCount(sql.toString(), parmsSql);
+    }
+
+    @Override
+    public List<User> selectByPage(Integer currentSize, Integer pageSize, Map<String, String[]> parms) {
+        // 根据条件拼接sql
+        StringBuffer sql = new StringBuffer("select * from user where 1 = 1");
+        List<Object> parmsSql = new ArrayList<>();
+        if (parms.get("username") != null && StringUtils.isNotEmpty(parms.get("username")[0])) {
+            sql.append(" and username like ?");
+            parmsSql.add("%"+parms.get("username")[0]+"%");
+        }
+        if (parms.get("telephone") != null && StringUtils.isNotEmpty(parms.get("telephone")[0])) {
+            sql.append(" and telephone like ?");
+            parmsSql.add("%"+parms.get("telephone")[0]+"%");
+        }
+        if (parms.get("email") != null && StringUtils.isNotEmpty(parms.get("email")[0])) {
+            sql.append(" and email like ?");
+            parmsSql.add("%"+parms.get("email")[0]+"%");
+        }
+        if (parms.get("joinTime") != null && StringUtils.isNotEmpty(parms.get("joinTime")[0])) {
+            sql.append(" and join_time like ?");
+            parmsSql.add("%"+parms.get("joinTime")[0]+"%");
+        }
+        // 追加分页
+        sql.append(" limit ?,?");
+        parmsSql.add(currentSize);
+        parmsSql.add(pageSize);
+        return JDBCUtils.executeQuery(User.class, sql.toString(), parmsSql);
     }
 }

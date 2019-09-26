@@ -4,7 +4,6 @@ import com.rimi.item.common.Page;
 import com.rimi.item.dao.IRoleDao;
 import com.rimi.item.dao.impl.RoleDaoImpl;
 import com.rimi.item.entity.Role;
-import com.rimi.item.entity.User;
 import com.rimi.item.service.IRoleService;
 import com.rimi.item.util.StringUtils;
 
@@ -66,8 +65,9 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public void update(Map<String, String[]> parameterMap) {
+    public boolean update(Map<String, String[]> parameterMap) {
         roleDao.update(parameterMap);
+        return false;
     }
 
     @Override

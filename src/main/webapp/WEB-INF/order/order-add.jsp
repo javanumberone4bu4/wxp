@@ -1,115 +1,88 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: rimi
-  Date: 2019/9/23
-  Time: 22:22
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html class="x-admin-sm">
 
 <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-X-admin2.2</title>
+    <title>order-add</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/xadmin.css">
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/xadmin.css">
     <script type="text/javascript" src="/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]--></head>
-
+    <script type="text/javascript" src="/js/xadmin.js"></script>
+ </head>
 <body>
 <div class="layui-fluid">
     <div class="layui-row">
         <form class="layui-form">
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>用户名</label>
+                <label for="orderNumber" class="layui-form-label">
+                    <span class="x-red">*</span>订单编号</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="username" name="username" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="orderNumber" name="orderNumber" required="" lay-verify="orderNumber" autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
-                <label for="realName" class="layui-form-label">
+                <label for="orderPerson" class="layui-form-label">
                     <span class="x-red">*</span>收货人</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="realName" name="realName" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="orderPerson" name="orderPerson" required="" lay-verify="orderPerson" autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
-                <label for="phone" class="layui-form-label">
-                    <span class="x-red">*</span>手机</label>
+                <label for="orderSum" class="layui-form-label">
+                    <span class="x-red">*</span>总金额</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="phone" name="phone" required="" lay-verify="phone" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="orderSum" name="orderSum" required="" lay-verify="orderSum" autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
-                <label for="addruss" class="layui-form-label">
-                    <span class="x-red">*</span>收货地址</label>
+                <label for="orderMoney" class="layui-form-label">
+                    <span class="x-red">*</span>应付金额</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="addruss" name="addruss" required="" lay-verify="required" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="orderMoney" name="orderMoney" required="" lay-verify="orderMoney" autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>配送物流</label>
+                <label for="orderStatus" class="layui-form-label">
+                    <span class="x-red">*</span>订单状态</label>
                 <div class="layui-input-inline">
-                    <select id="shipping" name="shipping" class="valid">
-                        <option value="shentong">申通物流</option>
-                        <option value="shunfeng">顺丰物流</option></select>
-                </div>
+                    <input type="text" id="orderStatus" name="orderStatus" required="" lay-verify="orderStatus" autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>支付方式</label>
+                <label for="moneyStatus" class="layui-form-label">
+                    <span class="x-red">*</span>支付状态</label>
                 <div class="layui-input-inline">
-                    <select name="contrller">
-                        <option>支付方式</option>
-                        <option>支付宝</option>
-                        <option>微信</option>
-                        <option>货到付款</option></select>
-                </div>
+                    <input type="text" id="moneyStatus" name="moneyStatus" required="" lay-verify="moneyStatus" autocomplete="off" class="layui-input"></div>
             </div>
             <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">
-                    <span class="x-red">*</span>发票抬头</label>
+                <label for="goodStatus" class="layui-form-label">
+                    <span class="x-red">*</span>发货状态</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="L_email" name="email" required="" lay-verify="email" autocomplete="off" class="layui-input"></div>
+                    <input type="text" id="goodStatus" name="goodStatus" required="" lay-verify="goodStatus" autocomplete="off" class="layui-input"></div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red">*</span></div>
             </div>
             <div class="layui-form-item layui-form-text">
-                <label for="desc" class="layui-form-label">商品增加</label>
-                <div class="layui-input-block">
-                    <table class="layui-table">
-                        <tbody>
-                        <tr>
-                            <td>haier海尔 BC-93TMPF 93升单门冰箱</td>
-                <td>0.01</td>
-            <td>984</td>
-    <td>1</td>
-    <td>删除</td></tr>
-    <tr>
-        <td>haier海尔 BC-93TMPF 93升单门冰箱</td>
-<td>0.01</td>
-<td>984</td>
-<td>1</td>
-<td>删除</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="layui-form-item layui-form-text">
-    <label for="desc" class="layui-form-label">描述</label>
-    <div class="layui-input-block">
-        <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>
-    </div>
-</div>
+                <label for="moneyStyle" class="layui-form-label">支付方式</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="moneyStyle" name="moneyStyle" required="" lay-verify="moneyStyle" autocomplete="off" class="layui-input"></div>
+
+</div>         <div class="layui-form-item layui-form-text">
+                <label for="sendStyle" class="layui-form-label">配送方式</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="sendStyle" name="sendStyle" required="" lay-verify="sendStyle" autocomplete="off" class="layui-input"></div>
+
+</div>         <div class="layui-form-item layui-form-text">
+            <label for="orderTime" class="layui-form-label">配送方式</label>
+            <div class="layui-input-inline">
+                <input type="text" id="orderTime" name="orderTime" required="" lay-verify="orderTime" autocomplete="off" class="layui-input"></div>
+
+        </div>
 <div class="layui-form-item">
-    <label for="L_repass" class="layui-form-label"></label>
-    <button class="layui-btn" lay-filter="add" id="L_repass" lay-submit="">增加</button></div>
+    <button type="button"  class="layui-btn"   lay-filter="add" lay-submit >
+        增加
+        <%--                    <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>--%>
+    </button>
+</div>
 </form>
 </div>
 </div>
