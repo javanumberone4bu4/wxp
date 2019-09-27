@@ -12,7 +12,7 @@ public class PwdUtilsTest {
 
     @Test
     public void getPwd() {
-        String pwd = PwdUtils.getPwd("admin123");
+        String pwd = PwdUtils.getPwd("test123456");
         System.out.println(pwd);
     }
 }

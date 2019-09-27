@@ -4,7 +4,9 @@ import com.rimi.item.dao.IRoleDao;
 import com.rimi.item.entity.Role;
 import com.rimi.item.entity.User;
 import com.rimi.item.util.JDBCUtils;
+import com.rimi.item.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -81,5 +83,49 @@ public class RoleDaoImpl implements IRoleDao {
         // 定义sql
         String sql = "delete from role where id = ?";
         JDBCUtils.executeUpdate(sql, id);
+    }
+
+    @Override
+    public Integer count(Map<String, String[]> parms) {
+        // 根据条件拼接sql
+        StringBuffer sql = new StringBuffer("select count(1) from role where 1 = 1");
+        List<Object> parmsSql = new ArrayList<>();
+        if (parms.get("roleName") != null && StringUtils.isNotEmpty(parms.get("roleName")[0])) {
+            sql.append(" and role_name like ?");
+            parmsSql.add("%"+parms.get("roleName")[0]+"%");
+        }
+        if (parms.get("roleRule") != null && StringUtils.isNotEmpty(parms.get("roleRule")[0])) {
+            sql.append(" and role_rule like ?");
+            parmsSql.add("%"+parms.get("roleRule")[0]+"%");
+        }
+        if (parms.get("roleDescription") != null && StringUtils.isNotEmpty(parms.get("roleDescription")[0])) {
+            sql.append(" and role_description like ?");
+            parmsSql.add("%"+parms.get("roleDescription")[0]+"%");
+        }
+        return JDBCUtils.executeQueryForCount(sql.toString(), parmsSql);
+    }
+
+    @Override
+    public List<Role> selectByPage(Integer currentSize, Integer pageSize, Map<String, String[]> parms) {
+        // 根据条件拼接sql
+        StringBuffer sql = new StringBuffer("select * from role where 1 = 1");
+        List<Object> parmsSql = new ArrayList<>();
+        if (parms.get("roleName") != null && StringUtils.isNotEmpty(parms.get("roleName")[0])) {
+            sql.append(" and role_name like ?");
+            parmsSql.add("%"+parms.get("roleName")[0]+"%");
+        }
+        if (parms.get("roleRule") != null && StringUtils.isNotEmpty(parms.get("roleRule")[0])) {
+            sql.append(" and role_rule like ?");
+            parmsSql.add("%"+parms.get("roleRule")[0]+"%");
+        }
+        if (parms.get("roleDescription") != null && StringUtils.isNotEmpty(parms.get("roleDescription")[0])) {
+            sql.append(" and role_description like ?");
+            parmsSql.add("%"+parms.get("roleDescription")[0]+"%");
+        }
+        // 追加分页
+        sql.append(" limit ?,?");
+        parmsSql.add(currentSize);
+        parmsSql.add(pageSize);
+        return JDBCUtils.executeQuery(Role.class, sql.toString(), parmsSql);
     }
 }

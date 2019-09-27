@@ -13,11 +13,6 @@
     <link rel="stylesheet" href="/css/xadmin.css">
     <script src="/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/js/xadmin.js"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 <body>
 <%
@@ -32,7 +27,7 @@
                 <div class="layui-card-body ">
                     <blockquote class="layui-elem-quote">欢迎管理员：
                         <span class="x-red"><%=session.getAttribute(LoginConstant.LOGIN_USERNAME)%></span>！当前时间:<%=time%>
-                        <a href="<%=request.getContextPath()%>/primary" >进入主页</a>
+                        <a href="<%=request.getContextPath()%>/primary" >进入主页<span class="layui-badge layui-bg-orange">GO</span></a>
                     </blockquote>
                 </div>
             </div>
@@ -98,6 +93,41 @@
                         <span class="layuiadmin-span-color">10%
                                     <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
                     </p>
+                    <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                        <div class="layui-progress-bar layui-bg-orange" lay-percent="10%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">下载
+                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
+                <div class="layui-card-body ">
+                    <p class="layuiadmin-big-font">43,555</p>
+                    <p>新下载
+                        <span class="layuiadmin-span-color">20%
+                                    <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
+                    </p>
+                    <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                        <div class="layui-progress-bar" lay-percent="20%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">下载
+                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
+                <div class="layui-card-body ">
+                    <p class="layuiadmin-big-font">63,555</p>
+                    <p>新下载
+                        <span class="layuiadmin-span-color">80%
+                                    <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
+                    </p>
+                    <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                        <div class="layui-progress-bar layui-bg-blue" lay-percent="80%"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,35 +138,13 @@
                 <div class="layui-card-body ">
                     <p class="layuiadmin-big-font">33,555</p>
                     <p>新下载
-                        <span class="layuiadmin-span-color">10%
+                        <span class="layuiadmin-span-color">50%
                                     <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
                     </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md3">
-            <div class="layui-card">
-                <div class="layui-card-header">下载
-                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
-                <div class="layui-card-body ">
-                    <p class="layuiadmin-big-font">33,555</p>
-                    <p>新下载
-                        <span class="layuiadmin-span-color">10%
-                                    <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md3">
-            <div class="layui-card">
-                <div class="layui-card-header">下载
-                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
-                <div class="layui-card-body ">
-                    <p class="layuiadmin-big-font">33,555</p>
-                    <p>新下载
-                        <span class="layuiadmin-span-color">10%
-                                    <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
-                    </p>
+
+                    <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                        <div class="layui-progress-bar layui-bg-orange" lay-percent="50%"></div>
+                    </div>
                 </div>
             </div>
         </div>

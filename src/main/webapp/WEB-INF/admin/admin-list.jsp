@@ -16,10 +16,10 @@
 <body>
 <div class="x-nav">
           <span class="layui-breadcrumb">
-            <a href="">首页</a>
-            <a href="">演示</a>
+         <a href="" >首页</a>
             <a>
-              <cite>导航元素</cite></a>
+              <cite>列表</cite>
+            </a>
           </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
        onclick="location.reload()" title="刷新">
@@ -30,16 +30,16 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-                    <form class="layui-form layui-col-space5" lay-filter="sreach">
+                    <div class="layui-form layui-col-space5">
                         <div class="layui-inline layui-show-xs-block">
                             <input type="text" name="username" placeholder="请输入用户名" autocomplete="off"
                                    class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
-                            <button class="layui-btn" lay-submit lay-filter="sreach"><i
+                            <button class="layui-btn" lay-submit lay-filter="search"><i
                                     class="layui-icon">&#xe615;</i></button>
                         </div>
-                    </form>
+                    </div>
                 </div>
 <%--                <div class="layui-card-header">--%>
 <%--                    <button class="layui-btn layui-btn-danger " onclick="delAll()" lay-data="tableCheck"><i class="layui-icon"></i>批量删除--%>
@@ -81,10 +81,10 @@
         //执行渲染
         table.render({
             elem: '#demo' //指定原始表格元素选择器（推荐id选择器）
-            , url: '/admin',
-            where: {method: 'data'}
+            , url: '/admin'
+            ,where:{method:'data'}
             // ,toolbar: '#demoTable'
-            , height: 315 //容器高度
+            , height:  'full-300' //容器高度
             , cols: [[
                 {checkbox: true, fixed: 'left', align: 'center'}
                 , {field: 'id', width: 80, title: 'ID', sort: true}
@@ -97,19 +97,22 @@
             ]],
             page: true,
             limits: [10, 20, 30, 40],
-            loading: true,
-            id:'idTest'
+            loading: true
         });
 
         form.on('submit(search)',function (data){
             var f_0 = data.field;
-            //console.log(f_0);
-            table.reload('idTest',{
-                where :{'username':f_0.username}
+           // console.log(f_0);
+            table.reload('demo',{
+                where :{
+                    method:'data',
+                    username:f_0.username
+                }
                 ,page :{
                     curr: 1
                 }
             });
+           // return false;
         });
         table.on('tool(test)',function (obj) {
             var data = obj.data;

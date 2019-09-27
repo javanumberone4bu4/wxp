@@ -39,11 +39,15 @@
     %>
 
     <form action="<%=contextPath%>/login" method="post" class="layui-form" >
+        <span class="layui-badge-dot layui-bg-green"></span>
         <input name="<%=LoginConstant.LOGIN_USERNAME%>" placeholder="用户名" type="text" lay-verify="required" class="layui-input" value="<%=username%>" >
         <hr class="hr15">
+        <span class="layui-badge-dot layui-bg-green"></span>
         <input name="<%=LoginConstant.LOGIN_PASSWORD%>" lay-verify="required" placeholder="密码"  type="password" class="layui-input" value="<%=password%>">
         <hr class="hr15">
         <input type="checkbox" name="<%=LoginConstant.LOGIN_REMEMBER%>" class="layui-input">记住我
+        <hr class="hr15">
+        登录方式:<i class="layui-icon layui-icon-login-qq"></i>     <i class="layui-icon layui-icon-login-wechat"></i>
         <hr class="hr15">
         <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
         <hr class="hr20" >

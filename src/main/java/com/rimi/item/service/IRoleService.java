@@ -2,6 +2,7 @@ package com.rimi.item.service;
 
 import com.rimi.item.common.Page;
 import com.rimi.item.entity.Role;
+import com.rimi.item.entity.User;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +21,6 @@ public interface IRoleService {
     boolean update(Map<String, String[]> parameterMap);
     void deleteById(Integer id);
     void deleteByIds(String[] ids);
+    Page<Role> findPagedBooks(Map<String, String[]> parms, Page page);
 }
+

@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: rimi
-  Date: 2019/9/23
-  Time: 19:44
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html class="x-admin-sm">
 <head>
@@ -28,21 +22,22 @@
 <!-- 顶部开始 -->
 <div class="container">
     <div class="logo">
-        <a href="">首页</a></div>
+        <a href="" >首页</a>
+    </div>
     <div class="left_open">
         <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
     </div>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;">admin</a>
+            <a href="javascript:;">admin<span class="layui-badge">3</span></a>
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
                 <dd>
-                    <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息</a></dd>
+                    <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息<span class="layui-badge-dot"></span></a></dd>
                 <dd>
-                    <a onclick="xadmin.open('切换帐号','<%=request.getContextPath()%>/changeUsername')">切换帐号</a></dd>
+                    <a onclick="xadmin.open('切换帐号','<%=request.getContextPath()%>/changeUsername')">切换帐号<span class="layui-badge-dot layui-bg-cyan"></span></a></dd>
                 <dd>
-                    <a href="<%=request.getContextPath()%>/exit">退出</a></dd>
+                    <a href="<%=request.getContextPath()%>/exit">退出<span class="layui-badge-dot layui-bg-gray"></span></a></dd>
             </dl>
         </li>
     </ul>
@@ -86,7 +81,7 @@
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.open('三级地区联动','city.html')">
+                        <a onclick="xadmin.open('三级地区联动','/city?method=list')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>三级地区联动</cite></a>
                     </li>
@@ -142,15 +137,6 @@
 </div>
 <div class="page-content-bg"></div>
 <style id="theme_style"></style>
-<!-- 右侧主体结束 -->
-<!-- 中部结束 -->
-<%--<script>//百度统计可去掉--%>
-<%--var _hmt = _hmt || []; (function() {--%>
-<%--    var hm = document.createElement("script");--%>
-<%--    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";--%>
-<%--    var s = document.getElementsByTagName("script")[0];--%>
-<%--    s.parentNode.insertBefore(hm, s);--%>
-<%--})();</script>--%>
 </body>
 
 </html>

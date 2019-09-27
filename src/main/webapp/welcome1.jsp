@@ -92,6 +92,41 @@
                         <span class="layuiadmin-span-color">10%
                                     <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
                     </p>
+                    <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                        <div class="layui-progress-bar layui-bg-orange" lay-percent="10%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">下载
+                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
+                <div class="layui-card-body ">
+                    <p class="layuiadmin-big-font">43,555</p>
+                    <p>新下载
+                        <span class="layuiadmin-span-color">20%
+                                    <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
+                    </p>
+                    <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                        <div class="layui-progress-bar" lay-percent="20%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-header">下载
+                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
+                <div class="layui-card-body ">
+                    <p class="layuiadmin-big-font">63,555</p>
+                    <p>新下载
+                        <span class="layuiadmin-span-color">80%
+                                    <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
+                    </p>
+                    <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                        <div class="layui-progress-bar layui-bg-blue" lay-percent="80%"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -102,35 +137,13 @@
                 <div class="layui-card-body ">
                     <p class="layuiadmin-big-font">33,555</p>
                     <p>新下载
-                        <span class="layuiadmin-span-color">10%
+                        <span class="layuiadmin-span-color">50%
                                     <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
                     </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md3">
-            <div class="layui-card">
-                <div class="layui-card-header">下载
-                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
-                <div class="layui-card-body ">
-                    <p class="layuiadmin-big-font">33,555</p>
-                    <p>新下载
-                        <span class="layuiadmin-span-color">10%
-                                    <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-sm6 layui-col-md3">
-            <div class="layui-card">
-                <div class="layui-card-header">下载
-                    <span class="layui-badge layui-bg-cyan layuiadmin-badge">月</span></div>
-                <div class="layui-card-body ">
-                    <p class="layuiadmin-big-font">33,555</p>
-                    <p>新下载
-                        <span class="layuiadmin-span-color">10%
-                                    <i class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
-                    </p>
+
+                    <div class="layui-progress layui-progress-big" lay-showPercent="true">
+                        <div class="layui-progress-bar layui-bg-orange" lay-percent="50%"></div>
+                    </div>
                 </div>
             </div>
         </div>

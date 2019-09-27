@@ -15,7 +15,6 @@ public interface IUserDao {
     User selectByUsernameAndPassword(String username,String password);
     void insert(Map<String, String[]> params);
     List<User> selectAll();
-
     List<User> selectByPage(Integer currentPage, Integer pageSize);
 
     Integer count();

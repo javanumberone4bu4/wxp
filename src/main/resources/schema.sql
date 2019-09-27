@@ -26,6 +26,16 @@ create table oss.role(
 )engine=InnoDB comment '角色表';
 
 insert into oss.role(role_name, role_rule, role_description) values('超级管理员','会员列表','权力无限大');
+insert into oss.role(role_name, role_rule, role_description) values('超级管理员','会员列表','权力无限大');
+insert into oss.role(role_name, role_rule, role_description) values('超级管理员','会员列表','权力无限大');
+insert into oss.role(role_name, role_rule, role_description) values('超级管理员','会员列表','权力无限大');
+insert into oss.role(role_name, role_rule, role_description) values('超级管理员','会员列表','权力无限大');
+insert into oss.role(role_name, role_rule, role_description) values('超级管理员','会员列表','权力无限大');
+insert into oss.role(role_name, role_rule, role_description) values('超级管理员','会员列表','权力无限大');
+insert into oss.role(role_name, role_rule, role_description) values('超级管理员','会员列表','权力无限大');
+insert into oss.role(role_name, role_rule, role_description) values('超级管理员','会员列表','权力无限大');
+insert into oss.role(role_name, role_rule, role_description) values('超级管理员','会员列表','权力无限大');
+insert into oss.role(role_name, role_rule, role_description) values('超级管理员','会员列表','权力无限大');
 
 use oss;
 drop table if exists oss.rule;
@@ -35,6 +45,21 @@ create table oss.rule(
     primary key (id)
 )engine=innoDB comment '权限分类表';
 
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
+insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
 insert into oss.rule(classifyname) values('会员相关,但又区别于会员');
 
 use oss;
@@ -55,7 +80,21 @@ create table oss.orders(
     primary key (id)
 )engine=InnoDB comment '订单表';
 
-insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1002,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1001,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1003,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1004,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1005,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1006,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1007,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1008,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1009,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1010,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1011,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1012,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1013,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1014,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1015,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
+insert into oss.orders(order_number, order_person, order_sum, order_money, order_status, money_status, good_status, money_style, send_style, order_time) values(1016,'王君义',18888.88,18000,'未收货','已支付','已发货','支付宝','申通','2019-09-09 09:09:09');
 
 
 use oss;
@@ -70,4 +109,19 @@ create table oss.member(
     primary key(id)
 )engine=InnoDB comment '会员表';
 
-insert into oss.member(username, sex, telephone, address) values('君临天下','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下1','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下2','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下3','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下4','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下5','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下6','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下7','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下8','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下9','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下10','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下11','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下12','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下13','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下14','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下15','男',15675424,'南天门');
+insert into oss.member(username, sex, telephone, address) values('君临天下16','男',15675424,'南天门');

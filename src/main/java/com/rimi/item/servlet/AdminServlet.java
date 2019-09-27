@@ -29,26 +29,6 @@ import java.util.Map;
 public class AdminServlet extends BaseServlet {
     private ILoginService loginService=new LoginServiceImpl();
     public String doList(HttpServletRequest request,HttpServletResponse response) {
-        // 获取分页的参数(当前第几页)
-        //String currentPage = request.getParameter("page");
-        //if (StringUtils.isEmpty(currentPage)){
-        //    currentPage = "1";
-        //}
-        // 设置每页显示的条数
-        // 创建一个分页对象
-        //Page page = new Page();
-        //page.setCurrentPage(Integer.valueOf(currentPage));
-        //Page page = Page.of(Integer.valueOf(currentPage));
-        //String limit = request.getParameter("limit");
-        //page.setPageSize(Integer.valueOf(limit));
-        // 调用分页方法获取数据
-        //Page<User> booksPage = loginService.findPagedBooks(page);
-        // 把分页的信息发送到页面
-        //request.setAttribute("page",booksPage);
-        //// 1.获取所有的图书
-        //List<Books> list = booksService.getAll();
-        //// 2.把图书列表存入到request域中,方便在页面通过jstl和el获取
-        //request.setAttribute("list", list);
         return "admin/admin-list";
     }
 

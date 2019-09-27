@@ -4,6 +4,7 @@ import com.rimi.item.common.Page;
 import com.rimi.item.dao.IRoleDao;
 import com.rimi.item.dao.impl.RoleDaoImpl;
 import com.rimi.item.entity.Role;
+import com.rimi.item.entity.User;
 import com.rimi.item.service.IRoleService;
 import com.rimi.item.util.StringUtils;
 
@@ -81,5 +82,16 @@ public class RoleServiceImpl implements IRoleService {
         for (String id : ids) {
             deleteById(Integer.valueOf(id));
         }
+    }
+
+    @Override
+    public Page<Role> findPagedBooks(Map<String, String[]> parms, Page page) {
+        // 根据条件查询所有的记录
+        Integer count = roleDao.count(parms);
+        page.setTotalCount(count);
+        // 调用方法
+        List<Role> books = roleDao.selectByPage(page.getCurrentSize(), page.getPageSize(), parms);
+        page.setPageData(books);
+        return page;
     }
 }

@@ -25,4 +25,7 @@ public interface IMemberDao {
     Integer update(Map<String, String[]> parameterMap);
 
     void deleteById(Integer id);
+    Integer count(Map<String, String[]> parms);
+
+    List<Member> selectByPage(Integer currentSize, Integer pageSize, Map<String, String[]> parms);
 }

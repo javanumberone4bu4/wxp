@@ -4,6 +4,7 @@ import com.rimi.item.common.Page;
 import com.rimi.item.dao.IMemberDao;
 import com.rimi.item.dao.impl.MemberDaoImpl;
 import com.rimi.item.entity.Member;
+import com.rimi.item.entity.User;
 import com.rimi.item.service.IMemberService;
 import com.rimi.item.util.StringUtils;
 
@@ -81,5 +82,16 @@ public class MemberServiceImpl implements IMemberService {
         for (String id : ids) {
             deleteById(Integer.valueOf(id));
         }
+    }
+
+    @Override
+    public Page<Member> findPagedBooks(Map<String, String[]> parms, Page page) {
+        // 根据条件查询所有的记录
+        Integer count = memberDao.count(parms);
+        page.setTotalCount(count);
+        // 调用方法
+        List<Member> books = memberDao.selectByPage(page.getCurrentSize(), page.getPageSize(), parms);
+        page.setPageData(books);
+        return page;
     }
 }

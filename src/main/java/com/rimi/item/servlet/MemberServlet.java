@@ -57,11 +57,11 @@ public class MemberServlet extends BaseServlet {
         Page page = Page.of(Integer.valueOf(currentPage));
         page.setPageSize(Integer.valueOf(limit));
         // 调用分页方法获取数据
-        //Map<String, String[]> params = request.getParameterMap();
-        Page<Member> booksPage = memberService.findPagedBooks(page);
+        Map<String, String[]> params = request.getParameterMap();
+        Page<Member> booksPage = memberService.findPagedBooks(params,page);
         LayuiData data = new LayuiData();
         data.setCode(0);
-        data.setCount(booksPage.getPageCount());
+        data.setCount(booksPage.getTotalCount());
         data.setMsg("");
         data.setData(booksPage.getPageData());
         // 把对象转出JSON

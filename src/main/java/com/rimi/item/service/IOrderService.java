@@ -18,7 +18,8 @@ public interface IOrderService {
     List<Order> getAll();
     Page<Order> findPagedBooks(Page page);
     Order findById(String id);
-    void update(Map<String, String[]> parameterMap);
+    boolean update(Map<String, String[]> parameterMap);
     void deleteById(Integer id);
     void deleteByIds(String[] ids);
+    Page<Order> findPagedBooks( Map<String, String[]> parms,Page page);
 }

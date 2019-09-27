@@ -25,4 +25,7 @@ public interface IRuleDao {
     Integer update(Map<String, String[]> parameterMap);
 
     void deleteById(Integer id);
+    Integer count(Map<String, String[]> parms);
+
+    List<Rule> selectByPage(Integer currentSize, Integer pageSize, Map<String, String[]> parms);
 }

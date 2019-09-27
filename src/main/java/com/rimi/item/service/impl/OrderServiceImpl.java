@@ -69,8 +69,9 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public void update(Map<String, String[]> parameterMap) {
-        orderDao.update(parameterMap);
+    public boolean update(Map<String, String[]> parameterMap) {
+        Integer update = orderDao.update(parameterMap);
+        return update!=null&&update>0;
     }
 
     @Override
@@ -84,5 +85,16 @@ public class OrderServiceImpl implements IOrderService {
         for (String id : ids) {
             deleteById(Integer.valueOf(id));
         }
+    }
+
+    @Override
+    public Page<Order> findPagedBooks( Map<String, String[]> parms,Page page) {
+        // 根据条件查询所有的记录
+        Integer count = orderDao.count(parms);
+        page.setTotalCount(count);
+        // 调用方法
+        List<Order> books = orderDao.selectByPage(page.getCurrentSize(), page.getPageSize(), parms);
+        page.setPageData(books);
+        return page;
     }
 }

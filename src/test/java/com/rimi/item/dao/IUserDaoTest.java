@@ -20,4 +20,40 @@ public class IUserDaoTest {
         User user = userDao.selectByUsernameAndPassword("admin", "123");
         Assert.assertNotNull(user);
     }
+
+    @Test
+    public void insert() {
+    }
+
+    @Test
+    public void selectAll() {
+    }
+
+    @Test
+    public void selectByPage() {
+    }
+
+    @Test
+    public void count() {
+    }
+
+    @Test
+    public void selectById() {
+    }
+
+    @Test
+    public void update() {
+    }
+
+    @Test
+    public void deleteById() {
+    }
+
+    @Test
+    public void testCount() {
+    }
+
+    @Test
+    public void testSelectByPage() {
+    }
 }

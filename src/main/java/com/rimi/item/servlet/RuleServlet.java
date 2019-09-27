@@ -61,10 +61,11 @@ public class RuleServlet extends BaseServlet{
         Page page = Page.of(Integer.valueOf(currentPage));
         page.setPageSize(Integer.valueOf(limit));
         // 调用分页方法获取数据
-        Page<Rule> booksPage = ruleService.findPagedBooks(page);
+        Map<String, String[]> params = request.getParameterMap();
+        Page<Rule> booksPage = ruleService.findPagedBooks(params,page);
         LayuiData data = new LayuiData();
         data.setCode(0);
-        data.setCount(booksPage.getPageCount());
+        data.setCount(booksPage.getTotalCount());
         data.setMsg("");
         data.setData(booksPage.getPageData());
         // 把对象转出JSON

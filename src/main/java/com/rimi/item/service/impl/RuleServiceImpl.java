@@ -4,6 +4,7 @@ import com.rimi.item.common.Page;
 import com.rimi.item.dao.IRuleDao;
 import com.rimi.item.dao.impl.RuleDaoImpl;
 import com.rimi.item.entity.Rule;
+import com.rimi.item.entity.User;
 import com.rimi.item.service.IRuleService;
 import com.rimi.item.util.StringUtils;
 
@@ -81,5 +82,16 @@ public class RuleServiceImpl implements IRuleService {
         for (String id : ids) {
             deleteById(Integer.valueOf(id));
         }
+    }
+
+    @Override
+    public Page<Rule> findPagedBooks(Map<String, String[]> parms, Page page) {
+        // 根据条件查询所有的记录
+        Integer count = ruleDao.count(parms);
+        page.setTotalCount(count);
+        // 调用方法
+        List<Rule> books = ruleDao.selectByPage(page.getCurrentSize(), page.getPageSize(), parms);
+        page.setPageData(books);
+        return page;
     }
 }

@@ -4,7 +4,9 @@ import com.rimi.item.dao.IRuleDao;
 import com.rimi.item.entity.Rule;
 import com.rimi.item.entity.User;
 import com.rimi.item.util.JDBCUtils;
+import com.rimi.item.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -75,5 +77,33 @@ public class RuleDaoImpl implements IRuleDao {
         // 定义sql
         String sql = "delete from rule where id = ?";
         JDBCUtils.executeUpdate(sql, id);
+    }
+
+    @Override
+    public Integer count(Map<String, String[]> parms) {
+        // 根据条件拼接sql
+        StringBuffer sql = new StringBuffer("select count(1) from rule where 1 = 1");
+        List<String> parmsSql = new ArrayList<>();
+        if (parms.get("classifyname") != null && StringUtils.isNotEmpty(parms.get("classifyname")[0])) {
+            sql.append(" and classifyname like ?");
+            parmsSql.add("%"+parms.get("classifyname")[0]+"%");
+        }
+        return JDBCUtils.executeQueryForCount(sql.toString(), parmsSql);
+    }
+
+    @Override
+    public List<Rule> selectByPage(Integer currentSize, Integer pageSize, Map<String, String[]> parms) {
+        // 根据条件拼接sql
+        StringBuffer sql = new StringBuffer("select * from rule where 1 = 1");
+        List<Object> parmsSql = new ArrayList<>();
+        if (parms.get("classifyname") != null && StringUtils.isNotEmpty(parms.get("classifyname")[0])) {
+            sql.append(" and classifyname like ?");
+            parmsSql.add("%"+parms.get("classifyname")[0]+"%");
+        }
+        // 追加分页
+        sql.append(" limit ?,?");
+        parmsSql.add(currentSize);
+        parmsSql.add(pageSize);
+        return JDBCUtils.executeQuery(Rule.class, sql.toString(), parmsSql);
     }
 }

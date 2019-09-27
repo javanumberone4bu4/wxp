@@ -3,8 +3,11 @@ package com.rimi.item.dao.impl;
 import com.rimi.item.dao.IMemberDao;
 import com.rimi.item.entity.Member;
 import com.rimi.item.entity.Order;
+import com.rimi.item.entity.User;
 import com.rimi.item.util.JDBCUtils;
+import com.rimi.item.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -85,5 +88,57 @@ public class MemberDaoImpl implements IMemberDao {
         // 定义sql
         String sql = "delete from member where id = ?";
         JDBCUtils.executeUpdate(sql, id);
+    }
+
+    @Override
+    public Integer count(Map<String, String[]> parms) {
+        // 根据条件拼接sql
+        StringBuffer sql = new StringBuffer("select count(1) from member where 1 = 1");
+        List<String> parmsSql = new ArrayList<>();
+        if (parms.get("username") != null && StringUtils.isNotEmpty(parms.get("username")[0])) {
+            sql.append(" and username like ?");
+            parmsSql.add("%"+parms.get("username")[0]+"%");
+        }
+        if (parms.get("sex") != null && StringUtils.isNotEmpty(parms.get("sex")[0])) {
+            sql.append(" and sex like ?");
+            parmsSql.add("%"+parms.get("sex")[0]+"%");
+        }
+        if (parms.get("telephone") != null && StringUtils.isNotEmpty(parms.get("telephone")[0])) {
+            sql.append(" and telephone like ?");
+            parmsSql.add("%"+parms.get("telephone")[0]+"%");
+        }
+        if (parms.get("address") != null && StringUtils.isNotEmpty(parms.get("address")[0])) {
+            sql.append(" and address like ?");
+            parmsSql.add("%"+parms.get("addrss")[0]+"%");
+        }
+        return JDBCUtils.executeQueryForCount(sql.toString(), parmsSql);
+    }
+
+    @Override
+    public List<Member> selectByPage(Integer currentSize, Integer pageSize, Map<String, String[]> parms) {
+        // 根据条件拼接sql
+        StringBuffer sql = new StringBuffer("select * from member where 1 = 1");
+        List<Object> parmsSql = new ArrayList<>();
+        if (parms.get("username") != null && StringUtils.isNotEmpty(parms.get("username")[0])) {
+            sql.append(" and username like ?");
+            parmsSql.add("%"+parms.get("username")[0]+"%");
+        }
+        if (parms.get("sex") != null && StringUtils.isNotEmpty(parms.get("sex")[0])) {
+            sql.append(" and sex like ?");
+            parmsSql.add("%"+parms.get("sex")[0]+"%");
+        }
+        if (parms.get("telephone") != null && StringUtils.isNotEmpty(parms.get("telephone")[0])) {
+            sql.append(" and telephone like ?");
+            parmsSql.add("%"+parms.get("telephone")[0]+"%");
+        }
+        if (parms.get("address") != null && StringUtils.isNotEmpty(parms.get("address")[0])) {
+            sql.append(" and address like ?");
+            parmsSql.add("%"+parms.get("addrss")[0]+"%");
+        }
+        // 追加分页
+        sql.append(" limit ?,?");
+        parmsSql.add(currentSize);
+        parmsSql.add(pageSize);
+        return JDBCUtils.executeQuery(Member.class, sql.toString(), parmsSql);
     }
 }
