@@ -10,7 +10,8 @@ import java.util.Base64;
  * @author Wang Xiaoping
  * @date 2019/9/23 16:34
  */
-public class PwdUtils {
+public class
+PwdUtils {
     private static final String SALT = "%%dqdyqw46548<>euru)^$#$";
 
     public static String getPwd(String source) {

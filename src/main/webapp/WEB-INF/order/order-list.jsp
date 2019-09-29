@@ -63,6 +63,24 @@
                         <span class="layui-icon layui-icon-delete"></span> 批量删除</button>
                     <button class="layui-btn" onclick="xadmin.open('添加用户','/order?method=add',600,400)"><i class="layui-icon"></i>添加</button>
                 </div>
+<%--                <div class="layui-table-tool-self">--%>
+<%--                    <div class="layui-inline" title="筛选列" lay-event="LAYTABLE_COLS">--%>
+<%--                       <i class="layui-icon layui-icon-cols">--%>
+<%--                          ::before--%>
+<%--                       </i>--%>
+<%--                    </div>--%>
+<%--                    <div class="layui-inline" title="导出" lay-event="LAYTABLE_EXPORT">--%>
+<%--                        <i class="layui-icon layui-icon-export">--%>
+<%--                           :: before--%>
+<%--                        </i>--%>
+<%--                    </div>--%>
+<%--                    <div class="layui-inline" title="打印" lay-event="LAYTABLE_PRINT">--%>
+<%--                        <i class="layui-icon layui-icon-print">--%>
+<%--                            ::before--%>
+<%--                        </i>--%>
+<%--                    </div>--%>
+
+<%--                </div>--%>
                 <div class="layui-card-body ">
                     <table id="demo" lay-filter="test"></table>
                     <script type="text/html" id="options">
@@ -83,14 +101,16 @@
         elem: '#demo' //指定原始表格元素选择器（推荐id选择器）
         , url: '/order',
         where: {method: 'data'}
+        ,toolbar:true
+        ,defaultToolbar: ['filter', 'print', 'exports']
         , height:  'full-300' //容器高度
         , cols: [[
             {checkbox: true, fixed: 'left', align: 'center'}
             , {field: 'id', width: 80, title: 'ID', sort: true}
-            , {field: 'orderNumber', width: 80, title: '订单编号',sort: true}
+            , {field: 'orderNumber', width: 130, title: '订单编号',sort: true}
             , {field: 'orderPerson', width: 80, title: '收货人'}
-            , {field: 'orderSum', width: 80, title: '总金额'}
-            , {field: 'orderMoney', width: 80, title: '应付金额'}
+            , {field: 'orderSum', width: 120, title: '总金额',sort:true}
+            , {field: 'orderMoney', width: 120, title: '应付金额',sort:true}
             , {field: 'orderStatus', width: 80, title: '订单状态'}
             , {field: 'moneyStatus', width: 80, title: '支付状态'}
             , {field: 'goodStatus', width: 80, title: '发货状态'}

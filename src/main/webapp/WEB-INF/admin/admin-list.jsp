@@ -32,7 +32,7 @@
                 <div class="layui-card-body ">
                     <div class="layui-form layui-col-space5">
                         <div class="layui-inline layui-show-xs-block">
-                            <input type="text" name="username" placeholder="请输入用户名" autocomplete="off"
+                            <input type="text" name="username" placeholder="请输入登录名" autocomplete="off"
                                    class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
@@ -85,12 +85,14 @@
             ,where:{method:'data'}
             // ,toolbar: '#demoTable'
             , height:  'full-300' //容器高度
+            ,toolbar:true
+            ,defaultToolbar: ['filter', 'print', 'exports']
             , cols: [[
                 {checkbox: true, fixed: 'left', align: 'center'}
                 , {field: 'id', width: 80, title: 'ID', sort: true}
                 , {field: 'username', width: 80, title: '登录名'}
                 , {field: 'telephone', width: 80, title: '手机', sort: true}
-                , {field: 'email', width: 80, title: '邮箱'}
+                , {field: 'email', width: 120, title: '邮箱'}
                 , {title: '加入时间', templet: '<div>{{ layui.util.toDateString(d.joinTime) }}</div>'}
                 , {title: '状态', templet: '#status'}
                 , {title: '操作', templet: '#options'}
@@ -123,16 +125,16 @@
 
                         //发异步把用户状态进行更改
                         $(obj).attr('title', '停用')
-                        $(obj).find('i').html('&#xe62f;');
+                        //$(obj).find('i').html('&#xe62f;');
 
-                        $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                        $(obj).parents("tr").find(".status").find('span').addClass('layui-btn-disabled').html('已停用');
                         layer.msg('已停用!', {icon: 5, time: 1000});
 
                     } else {
                         $(obj).attr('title', '启用')
-                        $(obj).find('i').html('&#xe601;');
+                       // $(obj).find('i').html('&#xe601;');
 
-                        $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                        $(obj).parents("tr").find(".status").find('span').removeClass('layui-btn-disabled').html('已启用');
                         layer.msg('已启用!', {icon: 5, time: 1000});
                     }
 

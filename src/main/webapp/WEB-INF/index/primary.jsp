@@ -29,11 +29,9 @@
     </div>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;">admin<span class="layui-badge">3</span></a>
+            <a href="javascript:;">admin<span class="layui-badge">2</span></a>
             <dl class="layui-nav-child">
                 <!-- 二级菜单 -->
-                <dd>
-                    <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息<span class="layui-badge-dot"></span></a></dd>
                 <dd>
                     <a onclick="xadmin.open('切换帐号','<%=request.getContextPath()%>/changeUsername')">切换帐号<span class="layui-badge-dot layui-bg-cyan"></span></a></dd>
                 <dd>

@@ -69,12 +69,14 @@
             , url: '/role',
             where: {method: 'data'}
             , height:  'full-300' //容器高度
+            ,toolbar:true
+            ,defaultToolbar: ['filter', 'print', 'exports']
             , cols: [[
                 {checkbox: true, fixed: 'left', align: 'center'}
                 , {field: 'id', width: 80, title: 'ID', sort: true}
-                , {field: 'roleName', width: 80, title: '角色名'}
+                , {field: 'roleName', width: 120, title: '角色名'}
                 , {field: 'roleRule', width: 80, title: '角色规则'}
-                , {field: 'roleDescription', width: 80, title: '角色描述'}
+                , {field: 'roleDescription', width: 150, title: '角色描述'}
                 , {title: '状态', templet: '#status'}
                 , {title: '操作', templet: '#options'}
             ]],

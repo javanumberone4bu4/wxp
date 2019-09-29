@@ -33,7 +33,7 @@
                 <div class="layui-card-body ">
                     <div class="layui-form layui-col-space5">
                         <div class="layui-inline layui-show-xs-block">
-                            <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input"></div>
+                            <input type="text" name="username" placeholder="请输入登录名" autocomplete="off" class="layui-input"></div>
                         <div class="layui-inline layui-show-xs-block">
                             <button class="layui-btn" lay-submit="" lay-filter="search">
                                 <i class="layui-icon">&#xe615;</i></button>
@@ -73,6 +73,8 @@
             , url: '/member',
             where: {method: 'data'}
             , height:  'full-300' //容器高度
+            ,toolbar:true
+            ,defaultToolbar: ['filter', 'print', 'exports']
             , cols: [[
                 {checkbox: true, fixed: 'left', align: 'center'}
                 , {field: 'id', width: 80, title: 'ID', sort: true}

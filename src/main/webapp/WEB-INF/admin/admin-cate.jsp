@@ -31,7 +31,7 @@
                     <form class="layui-form layui-col-space5">
                         <div class="layui-form-item">
                             <label for="classifyname" class="layui-form-label">
-                                <span class="x-red">*</span>分类名
+                                <span class="x-red">*</span>权限分类
                             </label>
                             <div class="layui-input-inline">
                                 <input type="text" id="classifyname" name="classifyname"
@@ -59,6 +59,12 @@
                 </div>
                 <div class="layui-card-body ">
                     <table id="demo" lay-filter="test"></table>
+<%--                    <script type="text/html" id="demoTable">--%>
+<%--                      <div class="laui-btn-container">--%>
+<%--                          <button class="layui-btn layui-btn-danger" data-type="delAll">--%>
+<%--                              <span class="layui-icon layui-icon-delete"></span> 批量删除</button>--%>
+<%--                      </div>--%>
+<%--                    </script>--%>
                     <script type="text/html" id="options">
                         <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -108,10 +114,12 @@
             , url: '/rule',
             where: {method: 'data'}
             , height:  'full-300'//容器高度
+            ,toolbar:true
+            ,defaultToolbar: ['filter', 'print', 'exports']
             , cols: [[
                 {checkbox: true, fixed: 'left', align: 'center'}
                 , {field: 'id', width: 80, title: 'ID', sort: true}
-                , {field: 'classifyname', width: 80, title: '权限分类'}
+                , {field: 'classifyname', width: 180, title: '权限分类'}
                 , {title: '操作', templet: '#options'}
             ]],
             page: true,
